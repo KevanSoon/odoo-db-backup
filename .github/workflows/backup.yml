@@ -8,31 +8,29 @@ jobs:
   backup-odoo:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump and compress Odoo database
+      - name: Dump Odoo database
         run: |
           pg_dump "${{ secrets.ODOO_DB_URL }}" \
-            -F plain \
-            | gzip > odoo-backup-$(date +%Y%m%d).sql.gz
+            -F plain -f odoo-backup-$(date +%Y%m%d).sql
 
       - name: Upload Odoo artifact
         uses: actions/upload-artifact@v4
         with:
           name: odoo-backup-${{ github.run_number }}
-          path: odoo-backup-*.sql.gz
+          path: odoo-backup-*.sql
           retention-days: 90
 
   backup-moodle:
     runs-on: ubuntu-latest
     steps:
-      - name: Dump and compress Moodle database
+      - name: Dump Moodle database
         run: |
           pg_dump "${{ secrets.MOODLE_DB_URL }}" \
-            -F plain \
-            | gzip > moodle-backup-$(date +%Y%m%d).sql.gz
+            -F plain -f moodle-backup-$(date +%Y%m%d).sql
 
       - name: Upload Moodle artifact
         uses: actions/upload-artifact@v4
         with:
           name: moodle-backup-${{ github.run_number }}
-          path: moodle-backup-*.sql.gz
+          path: moodle-backup-*.sql
           retention-days: 90
