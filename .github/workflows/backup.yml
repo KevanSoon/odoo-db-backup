@@ -18,7 +18,7 @@ jobs:
 
       - name: Dump Odoo database
         run: |
-          pg_dump "${{ secrets.ODOO_DB_URL }}" \
+          /usr/lib/postgresql/17/bin/pg_dump "${{ secrets.ODOO_DB_URL }}" \
             -F plain -f odoo-backup-$(date +%Y%m%d).sql
 
       - name: Upload Odoo artifact
@@ -41,7 +41,7 @@ jobs:
 
       - name: Dump Moodle database
         run: |
-          pg_dump "${{ secrets.MOODLE_DB_URL }}" \
+          /usr/lib/postgresql/17/bin/pg_dump "${{ secrets.MOODLE_DB_URL }}" \
             -F plain -f moodle-backup-$(date +%Y%m%d).sql
 
       - name: Upload Moodle artifact
