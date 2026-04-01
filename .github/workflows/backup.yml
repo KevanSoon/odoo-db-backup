@@ -16,6 +16,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client-17
 
+      - name: List databases (debug)
+        run: |
+          /usr/lib/postgresql/17/bin/psql "${{ secrets.ODOO_DB_URL }}" -c "\l"
+
       - name: Dump Odoo database
         run: |
           /usr/lib/postgresql/17/bin/pg_dump "${{ secrets.ODOO_DB_URL }}" \
