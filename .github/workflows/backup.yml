@@ -1,7 +1,7 @@
 name: Database Backup (Odoo + Moodle)
 on:
   schedule:
-    - cron: '0 */3 * * *'  # Every 3 hours
+    - cron: '30 11 * * *'  # Every 24 hours at 7:30PM Singapore Time (UTC+8)
   workflow_dispatch:       # Allow manual trigger
 
 jobs:
