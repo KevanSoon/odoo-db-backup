@@ -1,7 +1,7 @@
 name: Database Backup (Odoo + Moodle)
 on:
   schedule:
-    - cron: '0 2 * * *'  # Every day at 2AM UTC
+    - cron: '0 */3 * * *'  # Every 3 hours
   workflow_dispatch:       # Allow manual trigger
 
 jobs:
@@ -15,10 +15,6 @@ jobs:
           echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
           sudo apt-get update
           sudo apt-get install -y postgresql-client-17
-
-      - name: List databases (debug)
-        run: |
-          /usr/lib/postgresql/17/bin/psql "${{ secrets.ODOO_DB_URL }}" -c "\l"
 
       - name: Dump Odoo database
         run: |
